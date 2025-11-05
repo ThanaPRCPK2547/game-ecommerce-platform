@@ -1,4 +1,4 @@
-# PHP Website สำหรับ Awardspace.net
+# Game-ecommerce-platform สำหรับ Awardspace.net
 
 เว็บไซต์ที่พัฒนาด้วย PHP และ MySQL พร้อมระบบจัดการข้อมูลครบครัน เหมาะสำหรับ deploy ลง Awardspace.net
 
