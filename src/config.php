@@ -1,11 +1,11 @@
 <?php
 // Database configuration for Awardspace.net
 // เปลี่ยนข้อมูลเหล่านี้ตามที่ Awardspace ให้มา
-define('DB_HOST', getenv('DB_HOST') ?: '127.0.0.1');
+define('DB_HOST', getenv('DB_HOST') ?: 'db');
 define('DB_PORT', getenv('DB_PORT') ?: '3306');
-define('DB_NAME', getenv('DB_NAME') ?: 'php_website');
+define('DB_NAME', getenv('DB_NAME') ?: 'WebGameStore');
 define('DB_USER', getenv('DB_USER') ?: 'root');
-define('DB_PASS', getenv('DB_PASS') ?: '');
+define('DB_PASS', getenv('DB_PASS') ?: 'root_password_123');
 
 // Site configuration
 define('SITE_NAME', 'My PHP Website');
