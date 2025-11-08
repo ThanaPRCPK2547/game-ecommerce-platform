@@ -7,28 +7,30 @@ $action = isset($_GET['action']) ? $_GET['action'] : '';
 
 // ฟังก์ชันสำหรับแสดงข้อมูลสินค้า
 function getProducts($pdo, $limit = 6) {
-    $stmt = $pdo->prepare("
+    $limit = (int) $limit;
+    $sql = "
         SELECT p.*, c.name as category_name 
         FROM products p 
         LEFT JOIN categories c ON p.category_id = c.id 
         ORDER BY p.created_at DESC 
-        LIMIT ?
-    ");
-    $stmt->execute([$limit]);
+        LIMIT $limit
+    ";
+    $stmt = $pdo->query($sql);
     return $stmt->fetchAll();
 }
 
 // ฟังก์ชันสำหรับแสดงโพสต์
 function getPosts($pdo, $limit = 3) {
-    $stmt = $pdo->prepare("
+    $limit = (int) $limit;
+    $sql = "
         SELECT p.*, u.full_name as author_name 
         FROM posts p 
         LEFT JOIN users u ON p.author_id = u.id 
         WHERE p.status = 'published' 
         ORDER BY p.created_at DESC 
-        LIMIT ?
-    ");
-    $stmt->execute([$limit]);
+        LIMIT $limit
+    ";
+    $stmt = $pdo->query($sql);
     return $stmt->fetchAll();
 }
 

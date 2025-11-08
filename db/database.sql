@@ -3,6 +3,8 @@
 
 SET NAMES utf8mb4;
 
+USE WebGameStore;
+
 CREATE DATABASE IF NOT EXISTS php_website CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
 USE php_website;
 

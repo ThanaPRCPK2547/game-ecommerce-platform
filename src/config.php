@@ -24,6 +24,8 @@ try {
     $pdo = new PDO($dsn, DB_USER, DB_PASS);
     $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
     $pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+    // Enable emulate prepares so we can bind LIMIT/OFFSET parameters safely with MySQL
+    $pdo->setAttribute(PDO::ATTR_EMULATE_PREPARES, true);
 } catch(PDOException $e) {
     // ถ้าฐานข้อมูลยังไม่ถูกสร้าง (SQLSTATE[HY000] [1049]) ให้แสดงคำแนะนำอย่างชัดเจน
     if (strpos($e->getMessage(), "1049") !== false || stripos($e->getMessage(), 'Unknown database') !== false) {
