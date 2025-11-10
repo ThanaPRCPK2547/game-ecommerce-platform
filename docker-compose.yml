@@ -1,0 +1,36 @@
+services: # รายการ "บริการ" หรือ "ตู้คอนเทนเนอร์" ที่เราจะใช้
+
+  # บริการที่ 1: เว็บเซิร์ฟเวอร์ (PHP + Apache)
+  web:
+    #image: php:8.2-apache # ใช้พิมพ์เขียว PHP 8.2 ที่มี Apache ติดมาให้เลย
+    build: .
+    ports:
+      - "8000:80" # เชื่อมพอร์ต 8000 บน Mac ไปที่พอร์ต 80 ใน Container
+    volumes:
+      - ./src:/var/www/html # นี่คือส่วนที่เจ๋งที่สุด!
+        # เชื่อมโฟลเดอร์ ./src (บน Mac)
+        # ไปที่ /var/www/html (ที่เก็บเว็บใน Container)
+        # หมายความว่า: คุณแก้โค้ดใน ./src บน Mac แล้วเว็บใน Container จะอัปเดตทันที
+    environment:
+      DB_HOST: db
+      DB_PORT: "3306"
+      DB_NAME: php_website
+      DB_USER: root
+      DB_PASS: root_password_123
+      SITE_URL: http://localhost:8000
+    depends_on:
+      - db
+  # บริการที่ 2: ฐานข้อมูล (MySQL)
+  db:
+    image: mysql:8.0 # ใช้พิมพ์เขียว MySQL 8.0
+    ports:
+      - "3306:3306"
+    environment: # ตั้งค่า "ตัวแปร" ให้ MySQL
+      MYSQL_ROOT_PASSWORD: root_password_123 # รหัสผ่าน Root (ตั้งอะไรก็ได้)
+      MYSQL_DATABASE: WebGameStore # สร้างฐานข้อมูลนี้รอไว้
+    volumes:
+      - db_data:/var/lib/mysql # เก็บข้อมูล DB ไว้ข้างนอก กัน Container หาย
+      - ./db:/docker-entrypoint-initdb.d
+
+volumes: # ประกาศพื้นที่เก็บข้อมูล (เพื่อให้ข้อมูล DB ไม่หาย)
+  db_data:
